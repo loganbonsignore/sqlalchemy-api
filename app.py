@@ -38,8 +38,8 @@ def index():
         "<figure>/api/v1.0/precipitation<br/><br/>"
         "/api/v1.0/stations<br/><br/>"
         "/api/v1.0/tobs<br/><br/>"
-        "/api/v1.0/{*start_date}<br/><br/>"
-        "/api/v1.0/{*start_date}/{*end_date}</figure><br/><br/>"
+        "/api/v1.0/start_date<br/><br/>"
+        "/api/v1.0/start_date/end_date</figure><br/><br/>"
         "<strong>*All dates must be formatted as YYYY-MM-DD</strong>"
     )
 
@@ -80,6 +80,7 @@ def obs_station():
         .order_by(Measurement.date.desc()).all()
 
     temps = [temp for date, temp in obsv_station_temp]
+    session.close()
     return jsonify(temps)
 
 @app.route("/api/v1.0/<start>")
